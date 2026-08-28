@@ -1,12 +1,11 @@
-﻿
-
 #![windows_subsystem = "windows"]
 
 use std::path::PathBuf;
 use std::process::{Child, Command};
 use std::sync::Mutex;
 
-use windows::core::{w, PCWSTR};
+use windows::core::w;
+use windows::core::PCWSTR;
 use windows::Win32::Foundation::{HINSTANCE, HWND, LPARAM, LRESULT, WPARAM};
 use windows::Win32::Graphics::Gdi::{
     CreateFontW, FONT_CHARSET, FONT_CLIP_PRECISION, FONT_OUTPUT_PRECISION, FONT_QUALITY,
@@ -16,9 +15,9 @@ use windows::Win32::System::LibraryLoader::GetModuleHandleW;
 use windows::Win32::UI::Controls::{InitCommonControlsEx, ICC_STANDARD_CLASSES, INITCOMMONCONTROLSEX};
 use windows::Win32::UI::Input::KeyboardAndMouse::EnableWindow;
 use windows::Win32::UI::WindowsAndMessaging::{
-    CreateWindowExW, DefWindowProcW, DispatchMessageW, GetMessageW, HMENU, MessageBoxW,
-    PostQuitMessage, RegisterClassW, SendMessageW, SetWindowTextW, ShowWindow, BS_DEFPUSHBUTTON,
-    BS_PUSHBUTTON, MB_ICONERROR, MB_OK, MSG, SW_SHOW, WINDOW_EX_STYLE, WINDOW_STYLE, WM_COMMAND,
+    CreateWindowExW, DefWindowProcW, DispatchMessageW, GetMessageW, MessageBoxW, PostQuitMessage,
+    RegisterClassW, SendMessageW, SetWindowTextW, ShowWindow, BS_DEFPUSHBUTTON, BS_PUSHBUTTON,
+    HMENU, MB_ICONERROR, MB_OK, MSG, SW_SHOW, WINDOW_EX_STYLE, WINDOW_STYLE, WM_COMMAND,
     WM_CREATE, WM_DESTROY, WM_SETFONT, WNDCLASSW, WS_CHILD, WS_MAXIMIZEBOX, WS_OVERLAPPEDWINDOW,
     WS_TABSTOP, WS_THICKFRAME, WS_VISIBLE,
 };
@@ -26,24 +25,23 @@ use windows::Win32::UI::WindowsAndMessaging::{
 const IDC_START_BTN: usize = 201;
 const IDC_STOP_BTN: usize = 202;
 const IDC_STATUS_LABEL: usize = 203;
-const IDC_INFO_LABEL: usize = 204;
 
 static RUNNING_SERVER: Mutex<Option<Child>> = Mutex::new(None);
 static UI_HANDLES: Mutex<Option<ServerUiHandles>> = Mutex::new(None);
 
 #[derive(Clone, Copy)]
 struct ServerUiHandles {
-    btn_start: usize,
-    btn_stop: usize,
+    start_btn: usize,
+    stop_btn: usize,
     status_label: usize,
 }
 
 impl ServerUiHandles {
     fn start_hwnd(self) -> HWND {
-        HWND(self.btn_start as *mut _)
+        HWND(self.start_btn as *mut _)
     }
     fn stop_hwnd(self) -> HWND {
-        HWND(self.btn_stop as *mut _)
+        HWND(self.stop_btn as *mut _)
     }
     fn status_hwnd(self) -> HWND {
         HWND(self.status_label as *mut _)
@@ -57,34 +55,30 @@ fn find_server_binary() -> Option<PathBuf> {
         .unwrap_or_else(|| PathBuf::from("."));
 
     let candidates = [
+        exe_dir.join("goley-server.exe"),
         exe_dir.join("server.exe"),
-        exe_dir.join(r"APP\release\server.exe"),
-        exe_dir.join(r"APP\debug\server.exe"),
-        exe_dir.join(r"..\APP\release\server.exe"),
-        exe_dir.join(r"..\APP\debug\server.exe"),
-        exe_dir.join(r"..\..\APP\release\server.exe"),
-        exe_dir.join(r"target\release\server.exe"),
-        exe_dir.join(r"target\debug\server.exe"),
-        exe_dir.join(r"..\target\release\server.exe"),
-        exe_dir.join(r"..\target\debug\server.exe"),
-        exe_dir.join(r"..\..\target\release\server.exe"),
+        exe_dir.join(r"APP\CALENTON\release\goley-server.exe"),
+        exe_dir.join(r"..\APP\CALENTON\release\goley-server.exe"),
+        exe_dir.join(r"..\..\APP\CALENTON\release\goley-server.exe"),
+        exe_dir.join(r"APP\release\goley-server.exe"),
+        exe_dir.join(r"..\APP\release\goley-server.exe"),
+        exe_dir.join(r"target\release\goley-server.exe"),
+        exe_dir.join(r"..\target\release\goley-server.exe"),
     ];
 
     candidates.into_iter().find(|p| p.exists())
 }
 
-fn start_server(hwnd: HWND) -> anyhow::Result<()> {
+fn start_server(_hwnd: HWND) -> anyhow::Result<()> {
     let mut lock = RUNNING_SERVER.lock().unwrap();
     if lock.is_some() {
         return Ok(());
     }
 
     let server_bin = if let Some(bin) = find_server_binary() {
-        Command::new(bin).spawn()?
+        Command::new(&bin).spawn().map_err(|e| anyhow::anyhow!("Sunucu başlatılamadı ({:?}):\n{}", bin, e))?
     } else {
-        Command::new("cargo")
-            .args(["run", "-p", "server", "--release"])
-            .spawn()?
+        anyhow::bail!("goley-server.exe bulunamadı! Lütfen önce projeyi derleyin (build.bat).");
     };
 
     *lock = Some(server_bin);
@@ -141,36 +135,34 @@ unsafe extern "system" fn window_proc(hwnd: HWND, msg: u32, wparam: WPARAM, lpar
                 w!("Segoe UI"),
             );
 
-let info = CreateWindowExW(
+            let info = CreateWindowExW(
                 WINDOW_EX_STYLE::default(),
                 w!("STATIC"),
-                w!("Goley Server Emulator — Auth, Entry & Lobby Hizmetleri"),
+                w!("Goley Salgo Server Emulator — Auth, Entry & Lobby Hizmetleri"),
                 WS_CHILD | WS_VISIBLE,
                 20, 15, 440, 20,
-                Some(hwnd),
-                Some(HMENU(IDC_INFO_LABEL as *mut _)),
-                None, None,
+                Some(hwnd), None, None, None,
             ).unwrap();
             SendMessageW(info, WM_SETFONT, Some(WPARAM(font_bold.0 as usize)), Some(LPARAM(1)));
 
-let btn_start = CreateWindowExW(
+            let btn_start = CreateWindowExW(
                 WINDOW_EX_STYLE::default(),
                 w!("BUTTON"),
                 w!("SUNUCUYU BAŞLAT"),
                 WINDOW_STYLE(WS_CHILD.0 | WS_VISIBLE.0 | WS_TABSTOP.0 | BS_DEFPUSHBUTTON as u32),
-                20, 45, 210, 45,
+                20, 45, 210, 40,
                 Some(hwnd),
                 Some(HMENU(IDC_START_BTN as *mut _)),
                 None, None,
             ).unwrap();
             SendMessageW(btn_start, WM_SETFONT, Some(WPARAM(font_bold.0 as usize)), Some(LPARAM(1)));
 
-let btn_stop = CreateWindowExW(
+            let btn_stop = CreateWindowExW(
                 WINDOW_EX_STYLE::default(),
                 w!("BUTTON"),
                 w!("SUNUCUYU DURDUR"),
                 WINDOW_STYLE(WS_CHILD.0 | WS_VISIBLE.0 | WS_TABSTOP.0 | BS_PUSHBUTTON as u32),
-                240, 45, 210, 45,
+                250, 45, 210, 40,
                 Some(hwnd),
                 Some(HMENU(IDC_STOP_BTN as *mut _)),
                 None, None,
@@ -178,12 +170,12 @@ let btn_stop = CreateWindowExW(
             SendMessageW(btn_stop, WM_SETFONT, Some(WPARAM(font_bold.0 as usize)), Some(LPARAM(1)));
             let _ = EnableWindow(btn_stop, false);
 
-let status = CreateWindowExW(
+            let status = CreateWindowExW(
                 WINDOW_EX_STYLE::default(),
                 w!("STATIC"),
                 w!("Durum: Sunucu Kapalı"),
                 WS_CHILD | WS_VISIBLE,
-                20, 105, 440, 40,
+                20, 100, 440, 30,
                 Some(hwnd),
                 Some(HMENU(IDC_STATUS_LABEL as *mut _)),
                 None, None,
@@ -191,8 +183,8 @@ let status = CreateWindowExW(
             SendMessageW(status, WM_SETFONT, Some(WPARAM(font.0 as usize)), Some(LPARAM(1)));
 
             *UI_HANDLES.lock().unwrap() = Some(ServerUiHandles {
-                btn_start: btn_start.0 as usize,
-                btn_stop: btn_stop.0 as usize,
+                start_btn: btn_start.0 as usize,
+                stop_btn: btn_stop.0 as usize,
                 status_label: status.0 as usize,
             });
 
@@ -253,7 +245,7 @@ fn main() -> anyhow::Result<()> {
         let hwnd = CreateWindowExW(
             WINDOW_EX_STYLE::default(),
             class_name,
-            w!("Goley Server Launcher"),
+            w!("Goley Salgo - Server Launcher"),
             WINDOW_STYLE(
                 (WS_OVERLAPPEDWINDOW.0 & !WS_THICKFRAME.0 & !WS_MAXIMIZEBOX.0)
                     | WS_VISIBLE.0,
