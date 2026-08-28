@@ -3,7 +3,7 @@
 > [!NOTE]
 > **Bağımsız Proje Bildirimi:** Bu proje, **tamamen bağımsız (standalone)** bir sunucu emülatörüdür (`byKAYRA/goley-salgo`). Kendi ayrı deposunda barındırılır, bağımsız olarak derlenir ve istemci kaynak kodlarına hiçbir bağımlılığı yoktur. Yerel ağda, uzak sunucuda (VDS/VPS) veya konteyner içinde tek başına barındırılabilir.
 
-Bu proje, **Goley (TR)** istemcisinin ihtiyaç duyduğu tüm ağ servislerini (Kimlik Doğrulama, Giriş Yönlendirme, Lobi ve Yama Dağıtımı) simüle eden, modern **Rust** ve asenkron **Tokio** çalışma zamanı kullanılarak temiz oda tersine mühendislik prensipleriyle sıfırdan geliştirilmiş bağımsız sunucu emülatörüdür.
+Bu proje, **Goley (TR)** istemcisinin (`Projeye dahil değildir. Ayrı kurulum gerektirir`) ihtiyaç duyduğu tüm ağ servislerini (Kimlik Doğrulama, Giriş Yönlendirme, Lobi ve Yama Dağıtımı) simüle eden, modern **Rust** ve asenkron **Tokio** çalışma zamanı kullanılarak temiz oda tersine mühendislik prensipleriyle sıfırdan geliştirilmiş bağımsız sunucu emülatörüdür.
 
 ---
 
