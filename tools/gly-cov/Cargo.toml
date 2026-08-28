@@ -1,0 +1,18 @@
+﻿[package]
+name = "gly-cov"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "gly-cov"
+path = "src/main.rs"
+
+[dependencies]
+glyproto-schema = { path = "../../crates/glyproto-schema" }
+
+[lints]
+workspace = true

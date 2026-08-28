@@ -1,0 +1,32 @@
+﻿[package]
+name = "goley-server"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "goley-server"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+bytes.workspace = true
+clap = { version = "4", features = ["derive"] }
+domain = { path = "../domain" }
+futures-util = "0.3"
+glyproto = { path = "../glyproto" }
+hex = "0.4"
+persistence = { path = "../persistence" }
+proudnet = { path = "../proudnet" }
+sha2 = "0.10"
+tokio.workspace = true
+tokio-util.workspace = true
+trace = { path = "../trace" }
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+[lints]
+workspace = true

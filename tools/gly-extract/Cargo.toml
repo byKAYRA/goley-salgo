@@ -1,0 +1,20 @@
+﻿[package]
+name = "gly-extract"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "gly-extract"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+glyproto-schema = { path = "../../crates/glyproto-schema" }
+volante = { path = "../../crates/volante" }
+
+[lints]
+workspace = true

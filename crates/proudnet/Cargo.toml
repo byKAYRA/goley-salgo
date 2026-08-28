@@ -1,0 +1,22 @@
+﻿[package]
+name = "proudnet"
+version.workspace = true
+edition.workspace = true
+description = "Standalone ProudNet transport primitives"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+bytes.workspace = true
+flate2 = "1"
+pkcs1 = "0.7"
+rand = "0.8"
+rsa = "0.9"
+sha1 = "0.10"
+sha2 = "0.10"
+thiserror.workspace = true
+tokio-util.workspace = true
+
+[lints]
+workspace = true

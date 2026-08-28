@@ -1,0 +1,11 @@
+﻿[package]
+name = "glyproto-schema"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[lints]
+workspace = true

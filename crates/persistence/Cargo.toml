@@ -1,0 +1,15 @@
+﻿[package]
+name = "persistence"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+sqlx.workspace = true
+thiserror.workspace = true
+
+[lints]
+workspace = true

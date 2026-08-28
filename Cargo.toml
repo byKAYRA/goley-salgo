@@ -1,0 +1,37 @@
+﻿[workspace]
+members = [
+    "crates/proudnet",
+    "crates/glyproto",
+    "crates/glyproto-schema",
+    "crates/volante",
+    "crates/domain",
+    "crates/server",
+    "crates/server-gui",
+    "crates/patchd",
+    "crates/persistence",
+    "crates/trace",
+    "crates/conformance",
+    "tools/gly-extract",
+    "tools/gly-cov",
+]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace.dependencies]
+anyhow = "1"
+bytes = "1"
+thiserror = "2"
+tokio = { version = "1", features = ["macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
+tokio-util = { version = "0.7", features = ["codec"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio"] }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }

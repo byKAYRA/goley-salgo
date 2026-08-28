@@ -1,0 +1,11 @@
+// Goley protocol schema placeholder.
+//
+// Packet declarations intentionally begin in a later milestone, after the IDL grammar and
+// byte-level evidence have been established. Unresolved facts remain explicit rather than being
+// guessed:
+//
+// unknown: proudnet_net_version
+// unknown: net_config_dto_field_8_fast_encrypted_message_key_length_presence
+// unknown: goley_version_guid
+// unknown: goley_c2c_host_migration_support
+
