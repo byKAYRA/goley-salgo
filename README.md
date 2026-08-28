@@ -1,4 +1,4 @@
-# 🖥️ Goley Salgo (Özel Sunucu Emülatörü & Ağ Protokol Çekirdeği)
+#  Goley Salgo (Özel Sunucu Emülatörü & Ağ Protokol Çekirdeği)
 
 > [!NOTE]
 > **Bağımsız Proje Bildirimi:** Bu proje, **tamamen bağımsız (standalone)** bir sunucu emülatörüdür (`byKAYRA/goley-salgo`). Kendi ayrı deposunda barındırılır, bağımsız olarak derlenir ve istemci kaynak kodlarına hiçbir bağımlılığı yoktur. Yerel ağda, uzak sunucuda (VDS/VPS) veya konteyner içinde tek başına barındırılabilir.
@@ -7,7 +7,7 @@ Bu proje, **Goley (TR)** istemcisinin ihtiyaç duyduğu tüm ağ servislerini (K
 
 ---
 
-## 🎯 Projenin Amacı
+##  Projenin Amacı
 
 1. **Bağımsız Sunucu Altyapısı:** Orijinal sunucuların kapanmasından sonra Goley istemcisinin yerel veya özel ağlarda kesintisiz oynanabilmesini sağlamak.
 2. **Özel Ağ Protokollerini Uygulama:**
@@ -18,7 +18,7 @@ Bu proje, **Goley (TR)** istemcisinin ihtiyaç duyduğu tüm ağ servislerini (K
 
 ---
 
-## 📂 Dizin ve Dosya Yapısı
+##  Dizin ve Dosya Yapısı
 
 ```
 goley-salgo/
@@ -62,7 +62,7 @@ goley-salgo/
 
 ---
 
-## 📚 Dokümantasyon ve Araştırma Raporları
+##  Dokümantasyon ve Araştırma Raporları
 
 * **`docs/`**: Sunucu mimari şemaları, paket el sıkışma dökümleri, RMI IDL tanımları ve ağ yakalama loglarını barındırır.
 * **`Goley_Emulator_Mimari.md`**: Sunucunun Auth, Entry ve Lobby katmanlarının çalışma prensiplerini ve paket analizlerini içeren teknik mimari dokümanıdır.
@@ -70,7 +70,7 @@ goley-salgo/
 
 ---
 
-## 🌐 Ağ Servisleri ve Port Yapılandırması
+##  Ağ Servisleri ve Port Yapılandırması
 
 | Servis Adı | Port | Protokol | Açıklama |
 |---|---|---|---|
@@ -81,7 +81,7 @@ goley-salgo/
 
 ---
 
-## 🚀 Derleme ve Çalıştırma
+##  Derleme ve Çalıştırma
 
 ### Gereksinimler
 * [Rust Toolchain](https://www.rust-lang.org/) (x86_64-pc-windows-msvc)
@@ -111,10 +111,11 @@ Veya PowerShell betiği ile:
 
 ---
 
-## 💖 Teşekkürler (Special Thanks)
+##  Teşekkürler (Special Thanks)
 
-Bu sunucu projesinin hayata geçirilmesinde katkı sağlayan ve destek veren herkese teşekkür ederiz:
+Bu projenin gelişimine katkıda bulunan ve destek veren değerli topluluk üyelerine teşekkür ederiz:
 
-* [**@ShadowCoder**](https://github.com/example-contributor-1) — ProudNet RMI protokol serileştirme ve ağ el sıkışma mantığının modellenmesindeki katkıları için.
-* [**@ByteMaster**](https://github.com/example-contributor-2) — AniPark Auth şifreleme motoru ve RSA-2048 oturum anahtarı müzakere testlerindeki çalışmaları için.
-* [**@TurboDev**](https://github.com/example-contributor-3) — Sunucu GUI yönetim arayüzü, paket döküm analiz araçları ve yük testlerindeki yardımları için.
+* [**@uintptr**](https://github.com/0x1-1) — Verdiğiniz ilham ve topluluğa sunduğunuz işler için...
+* [**@Özkan Çırak**](https://github.com/ozkancirak) — Proje altyapısı, genel plan ve kesilen iletişim için...
+* [**@WlayerX**](https://github.com/WlayerX/goley-server-tools) — Eski projeleri arşivlediğiniz ve dağıttınız için, Teşekkürler.
+* Ayrıca bu misyonla bitirilmiş bir proje zaten var. [**Revival Projesi**](https://playrevival.co)'ni inceleyin.
