@@ -1,7 +1,7 @@
 #  Goley Salgo (Özel Sunucu Emülatörü & Ağ Protokol Çekirdeği) [oyuncu kartları bloke]
 
 
-> [!UYARI]
+> [!WARNING]
 > Birkaç hardcoded adres bırakmış olabilirim, düzeltmeyi planlamıyorum.
 
 > [!NOTE]
