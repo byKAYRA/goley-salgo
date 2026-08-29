@@ -1,5 +1,9 @@
 #  Goley Salgo (Özel Sunucu Emülatörü & Ağ Protokol Çekirdeği) [oyuncu kartları bloke]
 
+
+> [!UYARI]
+> Birkaç hardcoded adres bırakmış olabilirim, düzeltmeyi planlamıyorum.
+
 > [!NOTE]
 > **Bağımsız Proje Bildirimi:** Bu proje, **tamamen bağımsız (standalone)** bir sunucu emülatörüdür (`byKAYRA/goley-salgo`). Kendi ayrı deposunda barındırılır, bağımsız olarak derlenir ve istemci kaynak kodlarına hiçbir bağımlılığı yoktur. Yerel ağda, uzak sunucuda (VDS/VPS) veya konteyner içinde tek başına barındırılabilir.
 
